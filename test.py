@@ -3,6 +3,7 @@ import csv
 import io
 import json
 import ics
+import dateutil.parser as dateParser
 
 courses = ["svenska", "gymnasiearbete", "religionskunskap", "mdh", "matematik", "teknik terobvs", "engelska", "fysik", "idrott", "utvärdering"]
 
@@ -30,16 +31,17 @@ for row in csv_reader:
 #print(data)
 print(json.dumps(data, indent="\t"))
 
-c = ics.Calendar()
-for row in data["svenska"]:
-    print(row)
-    e = ics.Event() 
-    e.begin = row["Startdatum"] + " " + row["Starttid"]
-    e.name = row["Kurs"]
-    e.description = row["Info,Grupp"] + " " + row["Lärare"]
-    e.location = row["Klass"]
-    e.end = row["Slutdatum"] + " " + row["Sluttid"]
-    c.events.add(e)
-   
-with open('my.ics', 'w') as f:
-    f.writelines(c.serialize_iter())
+for course in courses:
+    c = ics.Calendar()
+    for row in data[course]:
+        print(row)
+        e = ics.Event() 
+        e.begin = dateParser.parse(row["Startdatum"] + " " + row["Starttid"] + "+0100")
+        e.name = row["Kurs"]
+        e.description = row["Info,Grupp"] + " " + row["Lärare"]
+        e.location = row["Klass"]
+        e.end = dateParser.parse(row["Slutdatum"] + " " + row["Sluttid"] + "+0100")
+        c.events.add(e)
+       
+    with open(str(course) + '.ics', 'w') as f:
+        f.writelines(c.serialize_iter())
