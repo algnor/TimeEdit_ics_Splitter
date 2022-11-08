@@ -49,8 +49,8 @@ for course in data:
         e = ics.Event() 
         e.begin = dateParser.parse(row["Startdatum"] + " " + row["Starttid"] + "+0100")
         e.name = row["Kurs"]
-        e.description = row["Info,Grupp"] + " " + row["Lärare"]
-        e.location = row["Klass"]
+        e.description = row["Info,Grupp"] + " " + row["Lärare"] + " " + row["Klass"]
+        e.location = row["Sal"] + " " + row[" "]
         e.end = dateParser.parse(row["Slutdatum"] + " " + row["Sluttid"] + "+0100")
         c.events.add(e)
     with open("./data_new/" + course + ".ics", "w") as file:
