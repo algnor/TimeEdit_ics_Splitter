@@ -53,7 +53,7 @@ for course in data:
         e.location = row["Klass"]
         e.end = dateParser.parse(row["Slutdatum"] + " " + row["Sluttid"] + "+0100")
         c.events.add(e)
-    with open("./data/" + course + ".ics", "w") as file:
+    with open("./data_new/" + course + ".ics", "w") as file:
         file.writelines(c.serialize_iter())
      
 @app.route("/get_<course>")
