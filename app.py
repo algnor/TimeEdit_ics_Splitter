@@ -43,7 +43,7 @@ for course in data:
         break
     c = ics.Calendar()
     c.method = "PUBLISH"
-    c.extra.append(parse.ContentLine(name="X_WR_CALNAME", value=info[:-1]))
+    c.extra.append(parse.ContentLine(name="X-WR-CALNAME", value=info[:-1]))
     for row in data[course]:
         print(row)
         e = ics.Event() 
@@ -63,7 +63,7 @@ def get_course(course):
         return "Course not found"
     c = ics.Calendar()
     c.method = "PUBLISH"
-    c.extra.append(parse.ContentLine(name="X_WR_CALNAME", value=info[:-1]))
+    c.extra.append(parse.ContentLine(name="X-WR-CALNAME", value=info[:-1]))
     for row in data[course]:
         print(row)
         e = ics.Event() 
