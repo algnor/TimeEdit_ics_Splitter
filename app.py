@@ -70,7 +70,7 @@ def get_course(course):
         e.begin = dateParser.parse(row["Startdatum"] + " " + row["Starttid"] + "+0100")
         e.name = row["Kurs"]
         e.description = row["Info,Grupp"] + " " + row["Lärare"]
-        e.location = row["Klass"]
+        e.location = row["Sal"] + " " + row[" "]
         e.end = dateParser.parse(row["Slutdatum"] + " " + row["Sluttid"] + "+0100")
         c.events.add(e)
        
