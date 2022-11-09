@@ -33,28 +33,6 @@ for row in csv_reader:
     else:
         data["other"].append(row)
 
-
-#print(data)
-print(json.dumps(data, indent="\t"))
-
-for course in data:
-    print(info)
-    if course not in data: 
-        break
-    c = ics.Calendar()
-    c.method = "PUBLISH"
-    c.extra.append(parse.ContentLine(name="X-WR-CALNAME", value=info[:-1]))
-    for row in data[course]:
-        print(row)
-        e = ics.Event() 
-        e.begin = dateParser.parse(row["Startdatum"] + " " + row["Starttid"] + "+0100")
-        e.name = row["Kurs"]
-        e.description = row["Info,Grupp"] + " " + row["Lärare"] + " " + row["Klass"]
-        e.location = row["Sal"] + " " + row[" "]
-        e.end = dateParser.parse(row["Slutdatum"] + " " + row["Sluttid"] + "+0100")
-        c.events.add(e)
-    with open("./data_new/" + course + ".ics", "w") as file:
-        file.writelines(c.serialize_iter())
      
 @app.route("/get_<course>")
 def get_course(course):
