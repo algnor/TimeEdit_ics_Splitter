@@ -10,4 +10,4 @@ zip -r ../deployment.zip .
 
 cd ..
 
-zip deployment.zip app.py
+zip deployment.zip lambda_function.py
